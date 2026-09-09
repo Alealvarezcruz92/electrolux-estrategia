@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estrategia de Medios · Electrolux Colombia 2027</title>
+<style>
+:root{
+  --navy:#0E1E52;--navy2:#152060;--purple:#7B2FBE;--orange:#E07820;
+  --blue:#185FA5;--teal:#0F6E56;--amber:#854F0B;
+  --text:#1a1a2e;--text2:#4a4a6a;--text3:#8888aa;
+  --bg:#f4f6fb;--card:#fff;--border:#dde3ef;--radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:2px solid var(--purple)}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-logo{font-size:12px;font-weight:700;color:var(--orange);letter-spacing:.1em;padding:14px 16px 14px 0;border-right:1px solid rgba(255,255,255,.15);margin-right:8px;white-space:nowrap;flex-shrink:0}
+nav a{color:rgba(255,255,255,.7);text-decoration:none;font-size:11.5px;font-weight:500;padding:14px 12px;white-space:nowrap;transition:color .2s;flex-shrink:0}
+nav a:hover,nav a.active{color:#fff}
+
+/* LANG BUTTON FLOATING */
+#lang-btn{
+  position:fixed;bottom:28px;right:28px;z-index:200;
+  background:var(--navy);color:#fff;
+  border:2px solid var(--purple);border-radius:30px;
+  padding:10px 20px;font-size:13px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;gap:8px;
+  box-shadow:0 4px 20px rgba(14,30,82,.3);transition:background .2s,transform .1s;
+}
+#lang-btn:hover{background:var(--purple);transform:translateY(-1px)}
+#lang-btn:active{transform:translateY(0)}
+
+/* LOADING OVERLAY */
+#lang-overlay{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:rgba(14,30,82,.85);
+  align-items:center;justify-content:center;flex-direction:column;gap:16px;
+}
+#lang-overlay.show{display:flex}
+#lang-overlay p{color:#fff;font-size:15px;font-weight:600;letter-spacing:.02em}
+.spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* LAYOUT */
+.wrap{max-width:900px;margin:0 auto;padding:0 24px 80px}
+
+/* HERO */
+.hero{background:var(--navy);color:#fff;padding:64px 0 48px}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--orange);text-transform:uppercase;margin-bottom:10px}
+.hero-title{font-size:42px;font-weight:800;line-height:1.1;margin-bottom:12px}
+.hero-title span{color:var(--orange)}
+.hero-sub{font-size:16px;color:#aabbdd;font-style:italic;margin-bottom:28px;max-width:620px}
+.hero-promise{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-left:4px solid var(--purple);border-radius:10px;padding:16px 20px;font-size:14px;font-style:italic;color:#ddeeff;max-width:680px;margin-bottom:32px}
+.hero-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:540px}
+.hk{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:14px;text-align:center}
+.hk-v{font-size:22px;font-weight:800;color:var(--orange)}
+.hk-l{font-size:11px;color:#aabbdd;margin-top:3px}
+
+/* SECTIONS */
+section{padding:56px 0}
+section:nth-child(odd){background:var(--bg)}
+section:nth-child(even){background:#eef1f8}
+.sec-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:6px}
+.sec-title{font-size:26px;font-weight:700;color:var(--navy);margin-bottom:6px;line-height:1.2}
+.sec-sub{font-size:14px;color:var(--text2);font-style:italic;margin-bottom:28px;max-width:640px}
+.sep{height:1px;background:var(--border);margin:28px 0}
+.sh3{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px}
+.card-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.card-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.card-body{font-size:12.5px;color:var(--text2);line-height:1.6}
+
+/* STATS */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
+.stat-v{font-size:26px;font-weight:800}
+.stat-l{font-size:11px;color:var(--text3);margin-top:4px}
+
+/* MET BADGE */
+.met{display:flex;align-items:flex-start;gap:12px;background:#fdf6ef;border:1px solid #f0dcc8;border-left:4px solid var(--orange);border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0}
+.met-icon{width:32px;height:32px;border-radius:50%;background:var(--orange);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.met-lbl{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:3px}
+.met-nm{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.met-tx{font-size:12px;color:var(--text2);line-height:1.55}
+
+/* INSIGHT */
+.insight{background:var(--navy);color:#fff;border-radius:var(--radius);padding:22px 24px;margin-bottom:10px}
+.i-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+.i-q{font-size:18px;font-weight:700;line-height:1.3;margin-bottom:8px}
+.i-b{font-size:12.5px;color:#aabbdd;line-height:1.6}
+
+/* PERSONAS */
+.persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.phead{padding:14px 16px;border-bottom:1px solid var(--border)}
+.pname{font-size:15px;font-weight:800;color:var(--navy)}
+.pcity{font-size:11px;color:var(--text3);margin-top:1px}
+.pbody{padding:14px 16px}
+.prow{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px solid #f0f2f8}
+.prow:last-of-type{border-bottom:none}
+.pl{font-size:11px;color:var(--text3)}
+.pv{font-size:11.5px;font-weight:600;color:var(--text);text-align:right;max-width:58%}
+.ptag{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-top:8px}
+.ciclos-title{font-size:12px;font-weight:700;color:var(--navy);margin:12px 0 6px}
+.ciclo{display:flex;align-items:flex-start;gap:8px;font-size:11.5px;color:var(--text2);line-height:1.5;margin-bottom:4px}
+.cdot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.p1 .phead{background:#E6F1FB}.p1 .ptag{background:#B5D4F4;color:#042C53}.p1 .cdot{background:#185FA5}
+.p2 .phead{background:#EEEDFE}.p2 .ptag{background:#CECBF6;color:#26215C}.p2 .cdot{background:#534AB7}
+.p3 .phead{background:#FAEEDA}.p3 .ptag{background:#FAC775;color:#412402}.p3 .cdot{background:#854F0B}
+
+/* FUNNEL */
+.funnel{display:flex;flex-direction:column}
+.fstage{display:grid;grid-template-columns:80px 1fr;border:1px solid var(--border);background:var(--card);margin-bottom:-1px}
+.fstage:first-child{border-radius:var(--radius) var(--radius) 0 0}
+.fstage:last-child{border-radius:0 0 var(--radius) var(--radius);margin-bottom:0}
+.fl{padding:14px 12px;display:flex;flex-direction:column;justify-content:center;gap:3px;border-right:1px solid var(--border)}
+.fnum{font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--text3)}
+.fname{font-size:12px;font-weight:700}
+.fb{padding:12px 16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:center}
+.finsight{font-size:11.5px;color:var(--text2);line-height:1.55;font-style:italic;border-left:2px solid var(--border);padding-left:10px}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;border:1px solid;white-space:nowrap}
+.fpbs{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.fpb{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px}
+.fkpi{text-align:right}
+.fkv{font-size:16px;font-weight:800;line-height:1}
+.fkl{font-size:10px;color:var(--text3);margin-top:2px}
+.fa1 .fl{background:#E6F1FB}.fa1 .fname,.fa1 .fkv{color:#0C447C}
+.fa1 .chip{border-color:#B5D4F4;color:#0C447C;background:#EEF5FD}
+.fa2 .fl{background:#EEEDFE}.fa2 .fname,.fa2 .fkv{color:#3C3489}
+.fa2 .chip{border-color:#CECBF6;color:#3C3489;background:#F5F4FE}
+.fa3 .fl{background:#E1F5EE}.fa3 .fname,.fa3 .fkv{color:#085041}
+.fa3 .chip{border-color:#9FE1CB;color:#085041;background:#EEF9F4}
+
+/* BRIDGE */
+.bridge{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:16px 0}
+.bpart{padding:18px 16px}
+.bpart:nth-child(2){background:var(--orange);border-left:1px solid var(--border);border-right:1px solid var(--border)}
+.bpart-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.bpart:nth-child(2) .bpart-name{color:#fff}
+.bpart-desc{font-size:11.5px;color:var(--text2);line-height:1.55}
+.bpart:nth-child(2) .bpart-desc{color:rgba(255,255,255,.88)}
+
+/* BUDGET */
+.budget-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.bc{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
+.bpct{font-size:28px;font-weight:800;line-height:1}
+.bl{font-size:11px;font-weight:600;color:var(--text2);margin-top:4px}
+.ba{font-size:10px;color:var(--text3);margin-top:3px}
+.b1{border-top:4px solid #378ADD}.b1 .bpct{color:#185FA5}
+.b2{border-top:4px solid #7F77DD}.b2 .bpct{color:#534AB7}
+.b3{border-top:4px solid #1D9E75}.b3 .bpct{color:#0F6E56}
+.b4{border-top:4px solid #BA7517}.b4 .bpct{color:#854F0B}
+
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.kpi-sec-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.kpi-table{display:flex;flex-direction:column;gap:6px}
+.kpi-row{display:grid;grid-template-columns:1fr 80px 80px;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;align-items:center}
+.kpi-label{font-size:12px;color:var(--text)}
+.kpi-base{font-size:11px;color:var(--text3);text-align:center}
+.kpi-meta{font-size:12px;font-weight:700;color:var(--navy);text-align:center}
+
+/* TIMELINE */
+.timeline{display:flex;flex-direction:column}
+.tphase{display:grid;grid-template-columns:120px 1fr;border:1px solid var(--border);background:var(--card);margin-bottom:-1px}
+.tphase:first-child{border-radius:var(--radius) var(--radius) 0 0}
+.tphase:last-child{border-radius:0 0 var(--radius) var(--radius);margin-bottom:0}
+.tl{padding:16px 14px;border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center}
+.tphase:nth-child(1) .tl{background:#E6F1FB}
+.tphase:nth-child(2) .tl{background:#EEEDFE}
+.tphase:nth-child(3) .tl{background:#E1F5EE}
+.tname{font-size:13px;font-weight:700}
+.tphase:nth-child(1) .tname{color:#0C447C}
+.tphase:nth-child(2) .tname{color:#3C3489}
+.tphase:nth-child(3) .tname{color:#085041}
+.tdur{font-size:10px;color:var(--text3);margin-top:2px}
+.tb{padding:14px 18px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.titem{font-size:11.5px;color:var(--text2);display:flex;align-items:flex-start;gap:6px;line-height:1.5}
+.tarr{color:var(--orange);font-weight:700;flex-shrink:0}
+
+/* GLOSARIO */
+.glos-grid{display:flex;flex-direction:column}
+.gitem{border:1px solid var(--border);background:var(--card);margin-bottom:-1px;display:grid;grid-template-columns:180px 1fr}
+.gitem:first-child{border-radius:var(--radius) var(--radius) 0 0}
+.gitem:last-child{border-radius:0 0 var(--radius) var(--radius);margin-bottom:0}
+.gterm{padding:14px 16px;border-right:1px solid var(--border);font-size:12px;font-weight:700;color:var(--navy);display:flex;align-items:center}
+.gdef{padding:14px 16px;font-size:12px;color:var(--text2);line-height:1.6;display:flex;align-items:center}
+.gitem:nth-child(odd){background:#fafbfd}
+
+/* MET GRID */
+.met-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.mc{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+.mc-num{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.06em;margin-bottom:4px}
+.mc-name{font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:3px}
+.mc-tag{display:inline-block;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:20px;margin-bottom:6px}
+.mc-desc{font-size:11px;color:var(--text2);line-height:1.55}
+
+/* CALLOUT */
+.callout{background:var(--navy);color:#fff;border-radius:var(--radius);padding:20px 24px;margin:20px 0}
+.callout-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+.callout-text{font-size:14px;font-style:italic;color:#ddeeff;line-height:1.6}
+
+/* PILL */
+.pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.pill{font-size:11.5px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid}
+
+footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:24px;font-size:11px}
+footer span{color:var(--orange);font-weight:700}
+
+@media(max-width:640px){
+  .hero-title{font-size:28px}
+  .hero-kpis,.card-grid-2,.card-grid-3,.persona-grid,.stat-row,.budget-row,.kpi-grid,.met-grid,.bridge{grid-template-columns:1fr}
+  .fb{grid-template-columns:1fr}
+  .fstage{grid-template-columns:70px 1fr}
+  .gitem{grid-template-columns:1fr}
+  .gterm{border-right:none;border-bottom:1px solid var(--border)}
+  .tphase{grid-template-columns:100px 1fr}
+  .tb{grid-template-columns:1fr}
+  #lang-btn{bottom:16px;right:16px;padding:8px 14px;font-size:12px}
+  nav a{font-size:10.5px;padding:12px 8px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">ELECTROLUX · 2027</div>
+    <a href="#resumen" class="nav-lnk">Resumen</a>
+    <a href="#diagnostico" class="nav-lnk">Diagnóstico</a>
+    <a href="#personas" class="nav-lnk">Buyer Persona</a>
+    <a href="#estrategia" class="nav-lnk">Estrategia</a>
+    <a href="#medicion" class="nav-lnk">Medición</a>
+    <a href="#implementacion" class="nav-lnk">Implementación</a>
+    <a href="#glosario" class="nav-lnk">Glosario</a>
+  </div>
+</nav>
+
+<!-- LANG BUTTON -->
+<button id="lang-btn" onclick="translatePage()">
+  <span id="lang-flag">🇧🇷</span>
+  <span id="lang-label">Ver em Português</span>
+</button>
+
+<!-- LOADING OVERLAY -->
+<div id="lang-overlay">
+  <div class="spinner"></div>
+  <p id="overlay-msg">Traduzindo para Português…</p>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <p class="hero-eyebrow" data-t>Accenture Song · RFP Colombia 2027 · Lavandería</p>
+    <h1 class="hero-title" data-t>De marca conocida<br>a marca <span style="color:var(--orange)">preferida.</span></h1>
+    <p class="hero-sub" data-t>Su papel es repetir ciclos. El nuestro es vivirlos.</p>
+    <div class="hero-promise" data-t>"Electrolux cuida tu ropa mientras tú cuidas lo que importa."</div>
+    <div class="hero-kpis">
+      <div class="hk"><div class="hk-v">US$13M</div><div class="hk-l" data-t>Brand Media</div></div>
+      <div class="hk"><div class="hk-v">ROAS ≥ 25</div><div class="hk-l" data-t>Performance</div></div>
+      <div class="hk"><div class="hk-v">2029</div><div class="hk-l" data-t>Top 3 A brands</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 1. RESUMEN -->
+<section id="resumen">
+  <div class="wrap">
+    <p class="sec-eyebrow">01</p>
+    <h2 class="sec-title" data-t>La estrategia en una página</h2>
+    <p class="sec-sub" data-t>Todo lo que sigue responde una sola pregunta: ¿cómo convierte Electrolux su momentum de ventas en preferencia de marca sostenida?</p>
+    <div class="callout">
+      <div class="callout-label" data-t>El problema central</div>
+      <div class="callout-text" data-t>Electrolux Colombia creció +41% en volumen de lavadoras en 2025. Pero el awareness sube mientras la consideración cae. La marca crece por la fuerza del producto — no por la fuerza de la marca. Ese crecimiento es frágil.</div>
+    </div>
+    <div class="card-grid-2" style="margin-top:20px">
+      <div class="card" style="border-top:3px solid var(--navy)">
+        <div class="card-title" data-t>Lo que proponemos</div>
+        <div class="card-body" data-t>Una arquitectura de medios phygital — digital construye preferencia, físico cierra la compra — organizada en 5 etapas coordinadas con 9 metodologías propias de Accenture Song.</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--purple)">
+        <div class="card-title" data-t>Por qué ahora</div>
+        <div class="card-body" data-t>Ninguna marca en Colombia ha construido un territorio emocional en lavandería. El espacio está libre. Electrolux tiene el producto para reclamarlo.</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--teal)">
+        <div class="card-title" data-t>El territorio de marca</div>
+        <div class="card-body" data-t>Inteligente · Confiable · Cuidadora. La marca que entiende que la lavandería no es un ciclo mecánico — es tiempo que se gana o se pierde.</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--orange)">
+        <div class="card-title" data-t>El gran diferencial</div>
+        <div class="card-body" data-t>Attribution Bridge — el único modelo que mide el impacto de TV en ventas físicas en Alkosto. Con el 89% de ventas offline, un modelo last-click solo ve el 11%.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. DIAGNÓSTICO -->
+<section id="diagnostico">
+  <div class="wrap">
+    <p class="sec-eyebrow">02</p>
+    <h2 class="sec-title" data-t>El problema que venimos a resolver</h2>
+    <p class="sec-sub" data-t>BHT Kantar + campo cualitativo con consumidores colombianos + escucha en redes (129.294 menciones analizadas).</p>
+    <div class="stat-row">
+      <div class="stat"><div class="stat-v" style="color:#185FA5">75% ↑</div><div class="stat-l" data-t>Awareness — subiendo</div></div>
+      <div class="stat"><div class="stat-v" style="color:#c0392b">37% ↓</div><div class="stat-l" data-t>Consideration — cayendo</div></div>
+      <div class="stat"><div class="stat-v">86–88</div><div class="stat-l" data-t>Pricing Power · meta: 100+</div></div>
+      <div class="stat"><div class="stat-v" style="color:var(--teal)">+41%</div><div class="stat-l" data-t>Vol. lavadoras 2025</div></div>
+    </div>
+    <div class="insight">
+      <div class="i-lbl" data-t>Hallazgo del campo · Bogotá · Medellín</div>
+      <div class="i-q" data-t>"El lujo es tener tiempo. Y también no preocuparse, no sufrir."</div>
+      <div class="i-b" data-t>Las palabras que funcionan: tranquilidad, alivio, facilidad. Las que NO: lujo, premium, innovación. La lavandería es una dor real de la rutina — nadie en la categoría lo está diciendo.</div>
+    </div>
+    <div class="insight" style="background:var(--navy2);margin-top:10px">
+      <div class="i-lbl" data-t>95.466 menciones · "vivir mejor" en Colombia</div>
+      <div class="i-q" data-t>"El lavado está resuelto. El dolor vive antes y después del ciclo."</div>
+      <div class="i-b" data-t>El tendido sin espacio, la ropa que sale húmeda, la ropa delicada que no entra al automático. Nadie comunica lo que rodea al ciclo — y ahí está la oportunidad.</div>
+    </div>
+    <div class="sep"></div>
+    <h3 class="sh3" data-t>Los 3 desafíos del brief</h3>
+    <div class="card-grid-3">
+      <div class="card" style="border-top:3px solid var(--navy)">
+        <div class="card-title">Brand Positioning</div>
+        <div class="card-body" data-t>Aumentar la deseabilidad. No basta con ser conocida — hay que ser deseada en el momento de decisión.</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--purple)">
+        <div class="card-title">Price Positioning</div>
+        <div class="card-body" data-t>Mejorar el Pricing Power de 86 a 100+. Eso no se logra con descuentos — se logra con marca.</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--orange)">
+        <div class="card-title">Build Consideration</div>
+        <div class="card-body" data-t>Convertir el conocimiento en intención de compra. Mover la consideration de 37% a 45% en Year 1.</div>
+      </div>
+    </div>
+    <div class="met">
+      <div class="met-icon">04</div>
+      <div>
+        <div class="met-lbl">Accenture Song</div>
+        <div class="met-nm">IMP Framework</div>
+        <div class="met-tx" data-t>Define cómo transformar el insight del consumidor colombiano en estrategia, y la estrategia en ejecución medible. Cuatro pilares: Human Data, MadTech, Personalization Enablement y Governance.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. BUYER PERSONA -->
+<section id="personas">
+  <div class="wrap">
+    <p class="sec-eyebrow">03</p>
+    <h2 class="sec-title" data-t>Tres perfiles. Tres argumentos distintos.</h2>
+    <p class="sec-sub" data-t>El Lifestyle Creator colombiano no es un perfil homogéneo — tres subperfiles con lógicas de compra y ciclos de vida distintos.</p>
+    <div class="persona-grid">
+      <div class="pcard p1">
+        <div class="phead"><div class="pname">Valentina</div><div class="pcity" data-t>Bogotá · Estrato 5–6 · COP 18–28M/mes</div></div>
+        <div class="pbody">
+          <div class="prow"><span class="pl" data-t>Decisión</span><span class="pv" data-t>Diseño + tecnología invisible</span></div>
+          <div class="prow"><span class="pl" data-t>Producto</span><span class="pv">Turco II Dark Silver</span></div>
+          <div class="prow"><span class="pl">Canal</span><span class="pv">Instagram · Falabella.com</span></div>
+          <div class="prow"><span class="pl" data-t>Mensaje</span><span class="pv" data-t>AutoDosing que desaparece</span></div>
+          <span class="ptag" data-t>60% online</span>
+          <div class="ciclos-title" data-t>Sus ciclos de vida</div>
+          <div class="ciclo"><div class="cdot"></div><span data-t>Ciclo de estrenar apartamento propio</span></div>
+          <div class="ciclo"><div class="cdot"></div><span data-t>Ciclo de curar el hogar como identidad</span></div>
+          <div class="ciclo"><div class="cdot"></div><span data-t>Ciclo de incorporar tecnología invisible</span></div>
+          <div class="ciclo"><div class="cdot"></div><span data-t>Ciclo de invertir en objetos que duren</span></div>
+        </div>
+      </div>
+      <div class="pcard p2">
+        <div class="phead"><div class="pname">Santiago</div><div class="pcity" data-t>Medellín · Estrato 4–5 · COP 12–18M/mes</div></div>
+        <div class="pbody">
+          <div class="prow"><span class="pl" data-t>Decisión</span><span class="pv" data-t>ROI real en pesos</span></div>
+          <div class="prow"><span class="pl" data-t>Producto</span><span class="pv">Pucon TL 14–18kg</span></div>
+          <div class="prow"><span class="pl">Canal</span><span class="pv">YouTube · Google Shopping</span></div>
+          <div class="prow"><span class="pl" data-t>Mensaje</span><span class="pv" data-t>Demo honesta · reseñas reales</span></div>
+          <span class="ptag" data-t>Showrooming en Alkosto</span>
+          <div class="ciclos-title" data-t>Sus ciclos de vida</div>
+          <div class="ciclo"><div class="cdot"></div><span data-t>Ciclo de armar el primer hogar en pareja</span></div>
+          <div class="ciclo"><div class="cdot"></div><span data-t>Ciclo de ser papá — más ropa, menos tiempo</span></div>
+          <div class="ciclo"><div class="cdot"></div><span data-t>Ciclo de reemplazar lo que ya no da la talla</span></div>
+          <div class="ciclo"><div class="cdot"></div><span data-t>Ciclo de un hobbie que ensucia mucho</span></div>
+        </div>
+      </div>
+      <div class="pcard p3">
+        <div class="phead"><div class="pname">Marcela</div><div class="pcity" data-t>Barranquilla · Estrato 3–4 · COP 5–8M/mes</div></div>
+        <div class="pbody">
+          <div class="prow"><span class="pl" data-t>Decisión</span><span class="pv" data-t>Cuota mensual</span></div>
+          <div class="prow"><span class="pl" data-t>Producto</span><span class="pv">Pucon TL · Onyx</span></div>
+          <div class="prow"><span class="pl">Canal</span><span class="pv">Facebook · WhatsApp · Éxito</span></div>
+          <div class="prow"><span class="pl" data-t>Mensaje</span><span class="pv" data-t>Desde $X/mes · ahorra en luz</span></div>
+          <span class="ptag" data-t>57% del segmento</span>
+          <div class="ciclos-title" data-t>Sus ciclos de vida</div>
+          <div class="ciclo"><div class="cdot"></div><span data-t>Ciclo de independizarse — su primera lavadora</span></div>
+          <div class="ciclo"><div class="cdot"></div><span data-t>Ciclo de construir un hogar que se vea bien</span></div>
+          <div class="ciclo"><div class="cdot"></div><span data-t>Ciclo de ser el orgullo de la familia</span></div>
+          <div class="ciclo"><div class="cdot"></div><span data-t>Ciclo de ahorrar sin sacrificar calidad</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="met" style="margin-top:20px">
+      <div class="met-icon">02</div>
+      <div>
+        <div class="met-lbl">Accenture Song</div>
+        <div class="met-nm">Relevance Engine + Human ID Framework</div>
+        <div class="met-tx" data-t>Activa el mensaje correcto para cada perfil automáticamente — sin producir tres campañas separadas. Valentina en Instagram y en Google es siempre Valentina, en todos sus dispositivos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. ESTRATEGIA -->
+<section id="estrategia">
+  <div class="wrap">
+    <p class="sec-eyebrow">04</p>
+    <h2 class="sec-title" data-t>Estrategia de medios — Full Funnel</h2>
+    <p class="sec-sub" data-t>Digital construye preferencia. Físico cierra la compra. 89% de las ventas ocurre en tienda — la estrategia tiene que ser phygital por diseño.</p>
+
+    <h3 class="sh3" data-t>Arquitectura estratégica · US$13M</h3>
+    <div class="budget-row">
+      <div class="bc b1"><div class="bpct">35%</div><div class="bl" data-t>Brand Media</div><div class="ba" data-t>~US$4.5M · TV · OOH · Video</div></div>
+      <div class="bc b2"><div class="bpct">30%</div><div class="bl" data-t>Consideración</div><div class="ba" data-t>~US$3.9M · Social · Influencers</div></div>
+      <div class="bc b3"><div class="bpct">20%</div><div class="bl">Retail Media</div><div class="ba" data-t>~US$2.6M · Alkosto · MercadoLibre</div></div>
+      <div class="bc b4"><div class="bpct">15%</div><div class="bl">Performance</div><div class="ba" data-t>Semilla → escala · ROAS ≥ 25</div></div>
+    </div>
+    <p style="font-size:11px;color:var(--text3);font-style:italic;margin-bottom:20px" data-t>Performance Media es ilimitado sujeto a ROAS ≥ 25. El 15% es la inversión semilla para validar el modelo.</p>
+
+    <div class="sep"></div>
+    <h3 class="sh3" data-t>Construcción de audiencias — 3 capas</h3>
+    <div class="funnel">
+      <div class="fstage fa1">
+        <div class="fl"><span class="fnum" data-t>CAPA 1</span><span class="fname" data-t>Broad · Awareness</span></div>
+        <div class="fb">
+          <p class="finsight" data-t>Antes del modo búsqueda. Instala el territorio emocional. El mensaje no habla de producto.</p>
+          <div><div class="chips"><span class="chip">TV · OOH</span><span class="chip">YouTube</span><span class="chip">Spotify</span></div><div class="fpbs"><span class="fpb" style="background:#B5D4F4;color:#042C53">Valentina</span><span class="fpb" style="background:#CECBF6;color:#26215C">Santiago</span><span class="fpb" style="background:#FAC775;color:#412402">Marcela</span></div></div>
+          <div class="fkpi"><div class="fkv">75%→82%</div><div class="fkl" data-t>Awareness</div></div>
+        </div>
+      </div>
+      <div class="fstage fa2">
+        <div class="fl"><span class="fnum" data-t>CAPA 2</span><span class="fname" data-t>Responsive · Consideración</span></div>
+        <div class="fb">
+          <p class="finsight" data-t>Señales de interés en la categoría. Cuida + CRM + propensión 30–90 días. El mensaje habla de beneficio, no de feature.</p>
+          <div><div class="chips"><span class="chip">Meta · TikTok</span><span class="chip">Influencers</span><span class="chip">SEM</span></div><div class="fpbs"><span class="fpb" style="background:#B5D4F4;color:#042C53">Valentina</span><span class="fpb" style="background:#CECBF6;color:#26215C">Santiago</span></div></div>
+          <div class="fkpi"><div class="fkv">37%→45%</div><div class="fkl">Consideration</div></div>
+        </div>
+      </div>
+      <div class="fstage fa3">
+        <div class="fl"><span class="fnum" data-t>CAPA 3</span><span class="fname" data-t>Active · Conversión</span></div>
+        <div class="fb">
+          <p class="finsight" data-t>Usuarios en decisión activa. Visitas a BWS, búsquedas de intent, comportamiento en retailers. Máximo ROAS.</p>
+          <div><div class="chips"><span class="chip">Google Shopping</span><span class="chip">Retargeting</span><span class="chip">Retail Media</span></div><div class="fpbs"><span class="fpb" style="background:#CECBF6;color:#26215C">Santiago</span><span class="fpb" style="background:#FAC775;color:#412402">Marcela</span></div></div>
+          <div class="fkpi"><div class="fkv">ROAS ≥ 25</div><div class="fkl">BWS · ShopClub</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="met">
+      <div class="met-icon">04</div>
+      <div>
+        <div class="met-lbl">Accenture Song</div>
+        <div class="met-nm">IMP Framework + DCO</div>
+        <div class="met-tx" data-t>Valentina ve Turco II Dark Silver. Santiago ve ROI en pesos. Marcela ve la cuota mensual. Tres mensajes, un solo sistema automatizado. +64% CTR · 21–48% lift en conversión.</div>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+    <h3 class="sh3" data-t>Retail Media — donde se gana la decisión</h3>
+    <div class="card-grid-3">
+      <div class="card" style="border-top:3px solid var(--navy)">
+        <div class="card-title">Onsite</div>
+        <div class="card-body" data-t>Sponsored Products top 3 en Alkosto y Éxito. Display en Falabella.com. Product Ads en MercadoLibre.</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--purple)">
+        <div class="card-title">Offsite</div>
+        <div class="card-body" data-t>Audiencias de compradores de retailers activadas en Meta, Google y programática con datos de purchase history.</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--orange)">
+        <div class="card-title">In-Store</div>
+        <div class="card-body" data-t>Pantallas digitales en Alkosto y Homecenter. POP premium. Demo activa de AutoDosing y Jet&Clean.</div>
+      </div>
+    </div>
+    <div class="met" style="margin-top:12px">
+      <div class="met-icon">06</div>
+      <div>
+        <div class="met-lbl">Accenture Song</div>
+        <div class="met-nm">Buy Side Readiness + Retail Media Flywheel</div>
+        <div class="met-tx" data-t>Antes de pautar, auditamos las fichas de producto en cada retailer. Cada venta genera datos que mejoran el targeting de la siguiente campaña — un ciclo virtuoso de aprendizaje continuo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. MEDICIÓN -->
+<section id="medicion">
+  <div class="wrap">
+    <p class="sec-eyebrow">05</p>
+    <h2 class="sec-title" data-t>Medición — el gran diferencial</h2>
+    <p class="sec-sub" data-t>Con el 89% de ventas físicas, un modelo last-click solo ve el 11% del negocio. El Attribution Bridge mide el otro 89%.</p>
+    <div class="callout">
+      <div class="callout-label" data-t>Lo que el Attribution Bridge responde</div>
+      <div class="callout-text" data-t>¿Cuánto vendió Alkosto en enero gracias al spot de TV de diciembre? ¿Cuál es el Halo Effect TV→Paid Search? ¿Si reduzco el budget 15%, qué canal corto primero? Ningún modelo estándar puede responder esas preguntas.</div>
+    </div>
+    <div class="bridge">
+      <div class="bpart">
+        <div class="bpart-name" data-t>MMM top-down</div>
+        <div class="bpart-desc" data-t>Econométrico. Mide el impacto de TV, OOH y medios offline sobre las ventas físicas en Alkosto, Homecenter y Falabella por ciudad.</div>
+      </div>
+      <div class="bpart">
+        <div class="bpart-name">Deep Learning Bridge</div>
+        <div class="bpart-desc" data-t>Une el MMM con el MTA en un solo modelo. Online + offline. Un único customer journey con crédito real para cada touchpoint.</div>
+      </div>
+      <div class="bpart">
+        <div class="bpart-name" data-t>MTA bottom-up</div>
+        <div class="bpart-desc" data-t>Multi-touch digital. Mide la contribución real de Google, Meta, Programática y Retail Media en el camino de conversión.</div>
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><div class="stat-v" style="color:var(--orange)">12–25%</div><div class="stat-l" data-t>Reducción CPA</div></div>
+      <div class="stat"><div class="stat-v" style="color:var(--orange)">10–25%</div><div class="stat-l" data-t>Aumento conversión</div></div>
+      <div class="stat"><div class="stat-v" style="color:var(--orange)">12–20%</div><div class="stat-l" data-t>Optimización budget</div></div>
+      <div class="stat"><div class="stat-v" style="color:var(--orange)">+18%</div><div class="stat-l" data-t>Caso Meliá Hotels</div></div>
+    </div>
+    <div class="met">
+      <div class="met-icon">01</div>
+      <div>
+        <div class="met-lbl">Accenture Song</div>
+        <div class="met-nm">Attribution Bridge</div>
+        <div class="met-tx" data-t>Mismo modelo aplicado en Meliá Hotels — ventas mayoritariamente físicas, múltiples canales. Resultado: +18% optimización del presupuesto. Para Colombia: conecta un spot de TV con una venta en Alkosto.</div>
+      </div>
+    </div>
+    <div class="met">
+      <div class="met-icon">09</div>
+      <div>
+        <div class="met-lbl">Accenture Song</div>
+        <div class="met-nm">Intelligence Engine</div>
+        <div class="met-tx" data-t>Alertas automáticas de ROAS por SKU, retailer y ciudad cada semana. Cuando Turco II en MercadoLibre cae del umbral, el sistema recomienda la reasignación antes de que el equipo lo detecte.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. IMPLEMENTACIÓN -->
+<section id="implementacion">
+  <div class="wrap">
+    <p class="sec-eyebrow">06</p>
+    <h2 class="sec-title" data-t>Implementación · KPIs · Compromisos</h2>
+    <p class="sec-sub" data-t>Discover → Define → Deliver. Equipo nativo colombiano desde el día 1.</p>
+    <div class="timeline" style="margin-bottom:28px">
+      <div class="tphase">
+        <div class="tl"><div class="tname">DISCOVER</div><div class="tdur" data-t>Semanas 1–4</div></div>
+        <div class="tb">
+          <div class="titem"><span class="tarr">→</span><span data-t>Auditoría datos Cuida, BWS, ShopClub</span></div>
+          <div class="titem"><span class="tarr">→</span><span data-t>Content Scorecards en 5 retailers</span></div>
+          <div class="titem"><span class="tarr">→</span><span data-t>Baseline de KPIs actuales</span></div>
+          <div class="titem"><span class="tarr">→</span><span data-t>Setup del Attribution Bridge</span></div>
+        </div>
+      </div>
+      <div class="tphase">
+        <div class="tl"><div class="tname">DEFINE</div><div class="tdur" data-t>Semanas 5–12</div></div>
+        <div class="tb">
+          <div class="titem"><span class="tarr">→</span><span data-t>Arquitectura de audiencias por perfil</span></div>
+          <div class="titem"><span class="tarr">→</span><span data-t>AON activo en Alkosto + MercadoLibre</span></div>
+          <div class="titem"><span class="tarr">→</span><span data-t>Primera flight de Brand Media</span></div>
+          <div class="titem"><span class="tarr">→</span><span data-t>Dashboard integrado operativo</span></div>
+        </div>
+      </div>
+      <div class="tphase">
+        <div class="tl"><div class="tname">DELIVER</div><div class="tdur" data-t>Semanas 13–90+</div></div>
+        <div class="tb">
+          <div class="titem"><span class="tarr">→</span><span data-t>MMM primeros 3 meses · optimización</span></div>
+          <div class="titem"><span class="tarr">→</span><span data-t>Geo-lift test por ciudad Colombia</span></div>
+          <div class="titem"><span class="tarr">→</span><span data-t>ROAS 25 validado · escala sin techo</span></div>
+          <div class="titem"><span class="tarr">→</span><span data-t>Roster de influencers activo</span></div>
+        </div>
+      </div>
+    </div>
+    <h3 class="sh3" data-t>Compromisos de resultado</h3>
+    <div class="kpi-grid">
+      <div>
+        <div class="kpi-sec-title" data-t>Brand Media</div>
+        <div class="kpi-table">
+          <div class="kpi-row"><span class="kpi-label">Awareness</span><span class="kpi-base">75%</span><span class="kpi-meta">→ 82%</span></div>
+          <div class="kpi-row"><span class="kpi-label">Consideration T2B</span><span class="kpi-base">37%</span><span class="kpi-meta">→ 45%</span></div>
+          <div class="kpi-row"><span class="kpi-label">Pricing Power</span><span class="kpi-base">86–88</span><span class="kpi-meta">→ 100+</span></div>
+          <div class="kpi-row"><span class="kpi-label" data-t>Brand Lift por flight</span><span class="kpi-base">—</span><span class="kpi-meta">+8 pts</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="kpi-sec-title" data-t>Performance + Negocio</div>
+        <div class="kpi-table">
+          <div class="kpi-row"><span class="kpi-label">ROAS BWS · ShopClub</span><span class="kpi-base">—</span><span class="kpi-meta">≥ 25x</span></div>
+          <div class="kpi-row"><span class="kpi-label" data-t>Lift conversión (DCO)</span><span class="kpi-base">—</span><span class="kpi-meta">21–48%</span></div>
+          <div class="kpi-row"><span class="kpi-label" data-t>Canal digital % ventas</span><span class="kpi-base">13%</span><span class="kpi-meta">→ 18%</span></div>
+          <div class="kpi-row"><span class="kpi-label">Market Share TL</span><span class="kpi-base">3%</span><span class="kpi-meta">→ 8%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:20px">
+      <div class="callout-label" data-t>Meta 2029</div>
+      <div class="callout-text" data-t>Top 3 A brands en Colombia · Pricing Power 105+ · Market Share 8% Top Load · Canal digital 25% de ventas</div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. GLOSARIO -->
+<section id="glosario">
+  <div class="wrap">
+    <p class="sec-eyebrow">07</p>
+    <h2 class="sec-title" data-t>Glosario</h2>
+    <p class="sec-sub" data-t>Términos clave y las 9 metodologías propias de Accenture Song.</p>
+    <div class="glos-grid" style="margin-bottom:24px">
+      <div class="gitem"><div class="gterm">Awareness</div><div class="gdef" data-t>% de consumidores que conocen la marca. Sube con Brand Media — TV, OOH, Video.</div></div>
+      <div class="gitem"><div class="gterm">Consideration T2B</div><div class="gdef" data-t>% que considerarían comprar Electrolux. El KPI más crítico hoy — 37% y cayendo.</div></div>
+      <div class="gitem"><div class="gterm">Pricing Power</div><div class="gdef" data-t>Disposición del consumidor a pagar por la marca vs. competencia. Electrolux: 86–88 (bajo la media: 100).</div></div>
+      <div class="gitem"><div class="gterm">ROAS</div><div class="gdef" data-t>Return on Ad Spend — ingresos por cada peso invertido en pauta. Meta: ≥ 25 en canales propios.</div></div>
+      <div class="gitem"><div class="gterm">Phygital</div><div class="gdef" data-t>Arquitectura que conecta medios digitales (construyen preferencia) con canales físicos (cierran la venta).</div></div>
+      <div class="gitem"><div class="gterm">AON</div><div class="gdef" data-t>Always-On — presencia activa los 365 días, no solo en flights de campaña.</div></div>
+      <div class="gitem"><div class="gterm">DCO</div><div class="gdef" data-t>Dynamic Creative Optimization — entrega automáticamente la creatividad correcta al perfil correcto.</div></div>
+      <div class="gitem"><div class="gterm">Retail Media</div><div class="gdef" data-t>Publicidad dentro del ecosistema de los retailers usando sus datos de compra reales.</div></div>
+      <div class="gitem"><div class="gterm">First-Party Data</div><div class="gdef" data-t>Datos propios de Electrolux: Cuida, ShopClub, BWS. Base de la estrategia sin cookies.</div></div>
+      <div class="gitem"><div class="gterm">MMM</div><div class="gdef" data-t>Media Mix Modelling — mide la contribución de cada canal a las ventas, incluyendo TV y OOH.</div></div>
+    </div>
+    <h3 style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:12px" data-t>9 Metodologías Accenture Song</h3>
+    <div class="met-grid">
+      <div class="mc"><div class="mc-num">01</div><div class="mc-name">Attribution Bridge</div><span class="mc-tag" style="background:#FAEEDA;color:#633806" data-t>Medición</span><div class="mc-desc" data-t>Combina MMM + MTA + Deep Learning. Mide TV → ventas físicas. Caso Meliá Hotels: +18%.</div></div>
+      <div class="mc"><div class="mc-num">02</div><div class="mc-name">Relevance Engine</div><span class="mc-tag" style="background:#EEEDFE;color:#3C3489">Data · IA</span><div class="mc-desc" data-t>Conecta todos los datos de Electrolux y los activa en medios automáticamente.</div></div>
+      <div class="mc"><div class="mc-num">03</div><div class="mc-name">Human ID Framework</div><span class="mc-tag" style="background:#EEEDFE;color:#3C3489">Data · IA</span><div class="mc-desc" data-t>Identifica al consumidor en todos sus dispositivos sin cookies.</div></div>
+      <div class="mc"><div class="mc-num">04</div><div class="mc-name">IMP Framework</div><span class="mc-tag" style="background:#E6F1FB;color:#0C447C" data-t>Estrategia</span><div class="mc-desc" data-t>Sistema operativo de la propuesta: Human Data · MadTech · Personalization · Governance.</div></div>
+      <div class="mc"><div class="mc-num">05</div><div class="mc-name">CRISP</div><span class="mc-tag" style="background:#FAEEDA;color:#633806" data-t>Creatividad</span><div class="mc-desc" data-t>Predice qué creatividad funcionará antes de producirla.</div></div>
+      <div class="mc"><div class="mc-num">06</div><div class="mc-name">Buy Side Readiness</div><span class="mc-tag" style="background:#E1F5EE;color:#085041">Retail Media</span><div class="mc-desc" data-t>Audita fichas de producto en cada retailer antes de pautar.</div></div>
+      <div class="mc"><div class="mc-num">07</div><div class="mc-name">Retail Media Flywheel</div><span class="mc-tag" style="background:#E1F5EE;color:#085041">Retail Media</span><div class="mc-desc" data-t>Cada venta mejora el targeting de la siguiente campaña.</div></div>
+      <div class="mc"><div class="mc-num">08</div><div class="mc-name">ai.RETAIL Platform</div><span class="mc-tag" style="background:#EEEDFE;color:#3C3489">Performance</span><div class="mc-desc" data-t>Customer 360 + CLTV + Next Best Action por perfil.</div></div>
+      <div class="mc"><div class="mc-num">09</div><div class="mc-name">Intelligence Engine</div><span class="mc-tag" style="background:#FAEEDA;color:#633806" data-t>IA Operativa</span><div class="mc-desc" data-t>Alertas automáticas de ROAS por SKU, retailer y ciudad cada semana.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><span>Accenture Song</span> · Electrolux Colombia 2027 · <span data-t>Confidencial — Uso Interno</span></p>
+  <p style="margin-top:6px;font-size:10px" data-t>Su papel es repetir ciclos. El nuestro es vivirlos.</p>
+</footer>
+
+<script>
+/* ── State ── */
+let currentLang = 'es';
+const snapshot = new Map(); /* node → original text */
+
+/* ── Collect all translatable text nodes ── */
+function collectNodes() {
+  const tagged = document.querySelectorAll('[data-t]');
+  const nodes = [];
+  tagged.forEach(el => {
+    /* For elements with only one direct text node (most cases) */
+    el.childNodes.forEach(n => {
+      if(n.nodeType === 3 && n.textContent.trim()) nodes.push(n);
+    });
+  });
+  return nodes;
+}
+
+/* ── Save snapshot of Spanish ── */
+function saveSnapshot(nodes) {
+  nodes.forEach(n => { if(!snapshot.has(n)) snapshot.set(n, n.textContent); });
+}
+
+/* ── Translate via Claude API ── */
+async function callClaude(texts, targetLang) {
+  const langName = targetLang === 'pt' ? 'Brazilian Portuguese' : 'Spanish';
+  const KEEP = 'Electrolux, Accenture Song, Alkosto, MercadoLibre, Falabella, Éxito, Homecenter, Pucon, Turco II, Cuida, ShopClub, BWS, AutoDosing, LuxCare, Jet&Clean, ROAS, MMM, MTA, DCO, BHT, CLTV, AON, KPI, Attribution Bridge, Relevance Engine, Human ID Framework, IMP Framework, CRISP, Buy Side Readiness, Retail Media Flywheel, ai.RETAIL, Intelligence Engine, T2B, Deep Learning Bridge';
+  const prompt = `Translate the following JSON array of strings to ${langName}. Keep unchanged: proper nouns, brand names, and these technical terms: ${KEEP}. Keep numbers, percentages, arrows (→), symbols exactly as-is. Return ONLY a valid JSON array of the same length, no extra text or markdown.\n\n${JSON.stringify(texts)}`;
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 4096,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+  const data = await res.json();
+  const raw = data.content[0].text.trim().replace(/```json|```/g, '').trim();
+  return JSON.parse(raw);
+}
+
+/* ── Main translate function ── */
+async function translatePage() {
+  const overlay = document.getElementById('lang-overlay');
+  const btn = document.getElementById('lang-btn');
+  const flag = document.getElementById('lang-flag');
+  const label = document.getElementById('lang-label');
+  const msg = document.getElementById('overlay-msg');
+
+  btn.disabled = true;
+
+  if(currentLang === 'es') {
+    /* ES → PT */
+    overlay.classList.add('show');
+    msg.textContent = 'Traduzindo para Português…';
+
+    const nodes = collectNodes();
+    saveSnapshot(nodes);
+    const texts = nodes.map(n => n.textContent);
+
+    /* Split into chunks of 50 */
+    const CHUNK = 50;
+    const translated = [];
+    for(let i = 0; i < texts.length; i += CHUNK) {
+      const chunk = texts.slice(i, i + CHUNK);
+      try {
+        const arr = await callClaude(chunk, 'pt');
+        translated.push(...arr);
+      } catch(e) {
+        translated.push(...chunk);
+      }
+    }
+
+    nodes.forEach((n, i) => { if(translated[i] !== undefined) n.textContent = translated[i]; });
+
+    /* Update nav labels */
+    const navPt = ['Resumo','Diagnóstico','Buyer Persona','Estratégia','Medição','Implementação','Glossário'];
+    document.querySelectorAll('.nav-lnk').forEach((a, i) => { if(navPt[i]) a.textContent = navPt[i]; });
+
+    currentLang = 'pt';
+    flag.textContent = '🇨🇴';
+    label.textContent = 'Ver en Español';
+    document.documentElement.lang = 'pt';
+    overlay.classList.remove('show');
+
+  } else {
+    /* PT → ES: restore from snapshot instantly */
+    snapshot.forEach((orig, node) => { node.textContent = orig; });
+    const navEs = ['Resumen','Diagnóstico','Buyer Persona','Estrategia','Medición','Implementación','Glosario'];
+    document.querySelectorAll('.nav-lnk').forEach((a, i) => { if(navEs[i]) a.textContent = navEs[i]; });
+    currentLang = 'es';
+    flag.textContent = '🇧🇷';
+    label.textContent = 'Ver em Português';
+    document.documentElement.lang = 'es';
+  }
+
+  btn.disabled = false;
+}
+
+/* ── Active nav on scroll ── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-lnk');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const a = document.querySelector(`.nav-lnk[href="#${e.target.id}"]`);
+      if(a) a.classList.add('active');
+    }
+  });
+}, { threshold: 0.25 });
+sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
